@@ -62,6 +62,7 @@ pub mod http2;
 #[cfg(not(all(feature = "http1", feature = "http2")))]
 use std::convert::Infallible;
 use std::error::Error as StdError;
+
 use std::fmt;
 use std::future::Future;
 #[cfg(not(all(feature = "http1", feature = "http2")))]

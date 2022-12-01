@@ -95,10 +95,15 @@ impl fmt::Debug for Protocol {
 ///
 /// [`http1_preserve_header_case`]: /client/struct.Client.html#method.http1_preserve_header_case
 #[derive(Clone, Debug)]
-pub(crate) struct HeaderCaseMap(HeaderMap<Bytes>);
+pub struct HeaderCaseMap(HeaderMap<Bytes>);
 
 #[cfg(feature = "http1")]
 impl HeaderCaseMap {
+    /// Thank you hyper for not just making this public to being with
+    pub fn get(&self, key: HeaderName) -> Option<&Bytes> {
+        self.0.get(key)
+    }
+
     /// Returns a view of all spellings associated with that header name,
     /// in the order they were found.
     pub(crate) fn get_all<'a>(
@@ -128,6 +133,12 @@ impl HeaderCaseMap {
         N: IntoHeaderName,
     {
         self.0.append(name, orig);
+    }
+}
+
+impl From<HeaderMap<Bytes>> for HeaderCaseMap {
+    fn from(hdr_map: HeaderMap<Bytes>) -> Self {
+        Self(hdr_map)
     }
 }
 
