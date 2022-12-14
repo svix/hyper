@@ -104,6 +104,10 @@ pub struct HeaderCaseMap(HeaderMap<Bytes>);
 
 #[cfg(all(any(feature = "client", feature = "server"), feature = "http1"))]
 impl HeaderCaseMap {
+    pub fn get(&self, key: HeaderName) -> Option<&Bytes> {
+        self.0.get(key)
+    }
+
     /// Returns a view of all spellings associated with that header name,
     /// in the order they were found.
     #[cfg(feature = "client")]
