@@ -99,7 +99,6 @@ pub struct HeaderCaseMap(HeaderMap<Bytes>);
 
 #[cfg(feature = "http1")]
 impl HeaderCaseMap {
-
     /// Thank you hyper for not just making this public to being with
     pub fn get(&self, key: HeaderName) -> Option<&Bytes> {
         self.0.get(key)
